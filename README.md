@@ -1,24 +1,25 @@
-# PGML-Copper-Heap-Leaching
+![Python](https://img.shields.io/badge/python-3.14-blue)
+![CUDA](https://img.shields.io/badge/CUDA-13.2-green)
+![PyTorch](https://img.shields.io/badge/PyTorch-nightly%20cu128-orange)
+![MATLAB](https://img.shields.io/badge/MATLAB-R2026a-red)
 
-**Physics-Guided Machine Learning for Sustainable Heap Leaching Control**
-MSc Chemical Engineering Research Project (CENG0057), UCL
+# PGML-Copper-Heap-Leaching
+**Physics-Guided Machine Learning for Sustainable Heap Leaching Control** <br>
+MSc Chemical Engineering Research Project (CENG0057), UCL. <br>
+Author: Sultan Alhamdan <br>
 Supervisor: Dr. Paulina Quintanilla
 
 ## Overview
-
-This project replaces the slow online soil-identification step in a
-conventional nonlinear model predictive control (NMPC) loop for heap
-leaching with a physics-guided machine learning (PGML) surrogate. The
+This project replaces the slow online soil identification step in a
+conventional nonlinear model predictive control (NMPC) loop for copper heap
+leaching utilising a physics-guided machine learning (PGML) surrogate. The
 surrogate is trained on the Richards/Gardner closure equations and
 predicts column hydraulic state in sub-second time, versus the 1.4 to 3.5
-second per-column identification cost of the conventional approach
-(baseline: Olivares et al., 2025, Minerals Engineering 229:109346).
+second per-column for the conventional approach (baseline: Olivares et al., 2025, Minerals Engineering 229:109346).
 
-The PGML model is trained with a physics-residual penalty so its
-predictions stay physically consistent, not merely data-fitted.
+The PGML model is trained with a physics-residual penalty so its predictions stay physically consistent, not merely data-fitted.
 
 ## Repository structure
-
     Data generation/      MATLAB column simulator and GPU batch pipeline
       *.m                 Richards solver, hydraulics, predictor-corrector
       sim_gpu.py          GPU forward solver (CuPy)
@@ -58,21 +59,10 @@ Then the remaining packages:
 Tested on: Python 3.14, CUDA 13.2, RTX 5060 Laptop GPU.
 
 ## Data
-
 Large artefacts (the dataset and model checkpoints) are not tracked in git.
 - `strategy1.h5` (201 runs, ~171 MB) is produced by `generate_dataset.py`.
 - `pgml_lam100.pt` is the trained surrogate checkpoint.
 
 ## Status
-
 - Strategy 1 (fixed soil, 201 runs): complete.
 - Strategy 3 (varied soils, Sobol sampling): pending.
-
-## Citation / reference
-
-Baseline NMPC framework: Olivares et al., *Minerals Engineering*, 2025,
-229:109346.
-
-## Author
-
-Sultan Alhamdan, MSc Chemical Engineering, UCL.
