@@ -20,30 +20,45 @@ second per-column for the conventional approach (baseline: Olivares et al., 2025
 The PGML model is trained with a physics-residual penalty so its predictions stay physically consistent, not merely data-fitted.
 
 ## Repository structure
-    Data generation/      MATLAB column simulator and GPU batch pipeline
-      *.m                 Richards solver, hydraulics, predictor-corrector
-      sim_gpu.py          GPU forward solver (CuPy)
-      generate_dataset.py .mat -> strategy1.h5 batch generation
-      preprocess.py       dataset preparation
+**`01_Simulator/`**
+- `hydraulics.py` : VGM/Gardner closure relations
+- `thomas_kernel.py` : tridiagonal (Thomas) solver
+- `theta_m1_theta.py` : saturation update step
+- `pred_correct.py` : predictor-corrector integration
+- `sim_column.py` : single-column forward simulation
+- `sim_gpu.py` : GPU batched forward solver (CuPy)
 
-    Training/
-      train_pgml.py       PGML training (physics-guided loss)
-      physics_loss.py     Gardner physics-residual penalty
-      physics_residual*.py residual computation and tests
+**`02_Data_Generator/`**
+- `generate_dataset.py` : batched runs to strategy1.h5
 
-    Evaluation/
-      evaluate.py         metrics and figures
-      benchmark_*.py      forward-step and rollout speed benchmarks
+**`03_Preprocessing/`**
+- `preprocess.py` : dataset prep, writes scaler.json + split.json
+
+**`04_Training/`**
+- `train_pgml.py` : PGML training loop
+- `physics_loss.py` : Gardner physics-residual penalty
+- `physics_residual_gardner.py` : Gardner residual computation
+- `test_physics_residual.py` : residual unit test
+- `test_physics_residual_gardner.py` : Gardner residual unit test
+
+**`05_Evaluation/`**
+- `evaluate.py` : metrics and figures
+- `benchmark_forward_step.py` : forward-step speedup benchmark
+- `benchmark_rollout.py` : full-rollout speed benchmark
+- `benchmark_b.py` : controller decision pipeline benchmark
+- `check_steadystate_coverage.py` : steady-state coverage check
+- `diagnose_rollout_drift.py` : open-loop drift diagnostic
+- `sweep_lambda.py` : lambda trade-off sweep
+
+**`verify_all.py`** : verifies the Python simulator port (CPU and GPU) against the 201 MATLAB reference runs
 
 ## Method
+The hydraulic transport layer is split across two closure models:
 
-The hydraulic transport layer is modelled with a deliberate split:
-- **Van Genuchten-Mualem (VGM)** drives data generation (ground-truth fidelity).
-- **Gardner** drives the controller and the surrogate physics penalty
-  (structural-uncertainty signal and NMPC consistency).
+- **Van Genuchten-Mualem (VGM)** drives data generation (considered ground truth).
+- **Gardner** drives the controller and the surrogate physics penalty (structural uncertainty signal and NMPC consistency).
 
-The surrogate is a 4-layer MLP (width 512) trained with a physics-residual
-weight lambda = 100, the knee of the accuracy/physics trade-off.
+The surrogate is a 4-layer MLP (width 512) trained with a physics-residual weight lambda = 100, the knee of the accuracy/physics trade-off.
 
 ## Installation
 
