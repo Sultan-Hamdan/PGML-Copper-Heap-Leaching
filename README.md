@@ -87,5 +87,6 @@ The training dataset is too large for git and is hosted on OneDrive:
 The dataset can also be regenerated from the MATLAB reference runs with `02_Data_Generator/generate_dataset.py`.
 
 ## Status
-- Strategy 1 (fixed soil, 201 runs): complete.
-- Strategy 3 (varied soils, Sobol sampling): pending.
+- Strategy 1 (fixed soil; vary Q and θi): complete.
+- Strategy 2 (space-filling coverage of Q and θi; controlled irrigation schedules): pending.
+- Strategy 3 (vary Ks, α, n via Sobol sampling): pending.
