@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Large data artefacts (hosted externally, see README)
+*.h5
+*.mat
+
+# Keep model checkpoints tracked (small), so do NOT ignore *.pt
