@@ -61,8 +61,9 @@ The hydraulic transport layer is split across two closure models:
 The surrogate is a 4-layer MLP (width 512) trained with a physics-residual weight lambda = 100, the knee of the accuracy/physics trade-off.
 
 ## Installation
+Can be used in a terminal from the repo root. In VS Code, used in terminal with `` Ctrl+` `` (PowerShell on Windows) using the following:
 
-GPU packages need custom index URLs, so install them first:
+PyTorch nightly and CuPy come from their own package indexes, so install them first:
 
     pip install --pre torch --index-url https://download.pytorch.org/whl/nightly/cu128
     pip install cupy-cuda13x
@@ -73,10 +74,17 @@ Then the remaining packages:
 
 Tested on: Python 3.14, CUDA 13.2, RTX 5060 Laptop GPU.
 
-## Data
-Large artefacts (the dataset and model checkpoints) are not tracked in git.
-- `strategy1.h5` (201 runs, ~171 MB) is produced by `generate_dataset.py`.
-- `pgml_lam100.pt` is the trained surrogate checkpoint.
+## Data and model
+
+The trained surrogate checkpoint is included in the repo:
+
+- `pgml_lam100.pt` : PGML surrogate (4-layer MLP, λ = 100), 4.0 MB.
+
+The training dataset is too large for git and is hosted on OneDrive:
+
+- [`strategy1.h5`](https://1drv.ms/u/c/b1dd7053cf2fa097/IQD7zMgEJCj5QalOYTCVYUetAVyODMCobTd87nXSmFX7t1I?e=EKgTeg) : 201 runs, 171 MB.
+
+The dataset can also be regenerated from the MATLAB reference runs with `02_Data_Generator/generate_dataset.py`.
 
 ## Status
 - Strategy 1 (fixed soil, 201 runs): complete.
