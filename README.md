@@ -20,6 +20,9 @@ second per-column for the conventional approach (baseline: Olivares et al., 2025
 The PGML model is trained with a physics-residual penalty so its predictions stay physically consistent, not merely data-fitted.
 
 ## Repository structure
+
+**`Python/`**
+
 **`01_Simulator/`**
 - `hydraulics.py` : VGM/Gardner closure relations
 - `thomas_kernel.py` : tridiagonal (Thomas) solver
@@ -51,6 +54,8 @@ The PGML model is trained with a physics-residual penalty so its predictions sta
 - `sweep_lambda.py` : lambda trade-off sweep
 
 **`verify_all.py`** : verifies the Python simulator port (CPU and GPU) against the 201 MATLAB reference runs
+
+**`Presentations/`** : Progress update slides (PDF)
 
 ## Method
 The hydraulic transport layer is split across two closure models:
