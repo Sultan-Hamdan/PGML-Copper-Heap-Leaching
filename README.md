@@ -22,40 +22,34 @@ The PGML model is trained with a physics-residual penalty so its predictions sta
 ## Repository structure
 
 **`Python/`**
+- **`01_Simulator/`**
+  - `hydraulics.py` : VGM/Gardner closure relations
+  - `thomas_kernel.py` : tridiagonal (Thomas) solver
+  - `theta_m1_theta.py` : saturation update step
+  - `pred_correct.py` : predictor-corrector integration
+  - `sim_column.py` : single-column forward simulation
+  - `sim_gpu.py` : GPU batched forward solver (CuPy)
+- **`02_Data_Generator/`**
+  - `generate_dataset.py` : batched runs to strategy1.h5
+- **`03_Preprocessing/`**
+  - `preprocess.py` : dataset prep, writes scaler.json + split.json
+- **`04_Training/`**
+  - `train_pgml.py` : PGML training loop
+  - `physics_loss.py` : Gardner physics-residual penalty
+  - `physics_residual_gardner.py` : Gardner residual computation
+  - `test_physics_residual.py` : residual unit test
+  - `test_physics_residual_gardner.py` : Gardner residual unit test
+- **`05_Evaluation/`**
+  - `evaluate.py` : metrics and figures
+  - `benchmark_forward_step.py` : forward-step speedup benchmark
+  - `benchmark_rollout.py` : full-rollout speed benchmark
+  - `benchmark_b.py` : controller decision pipeline benchmark
+  - `check_steadystate_coverage.py` : steady-state coverage check
+  - `diagnose_rollout_drift.py` : open-loop drift diagnostic
+  - `sweep_lambda.py` : lambda trade-off sweep
+- **`verify_all.py`** : verifies the Python simulator port (CPU and GPU) against the 201 MATLAB reference runs
 
-**`01_Simulator/`**
-- `hydraulics.py` : VGM/Gardner closure relations
-- `thomas_kernel.py` : tridiagonal (Thomas) solver
-- `theta_m1_theta.py` : saturation update step
-- `pred_correct.py` : predictor-corrector integration
-- `sim_column.py` : single-column forward simulation
-- `sim_gpu.py` : GPU batched forward solver (CuPy)
-
-**`02_Data_Generator/`**
-- `generate_dataset.py` : batched runs to strategy1.h5
-
-**`03_Preprocessing/`**
-- `preprocess.py` : dataset prep, writes scaler.json + split.json
-
-**`04_Training/`**
-- `train_pgml.py` : PGML training loop
-- `physics_loss.py` : Gardner physics-residual penalty
-- `physics_residual_gardner.py` : Gardner residual computation
-- `test_physics_residual.py` : residual unit test
-- `test_physics_residual_gardner.py` : Gardner residual unit test
-
-**`05_Evaluation/`**
-- `evaluate.py` : metrics and figures
-- `benchmark_forward_step.py` : forward-step speedup benchmark
-- `benchmark_rollout.py` : full-rollout speed benchmark
-- `benchmark_b.py` : controller decision pipeline benchmark
-- `check_steadystate_coverage.py` : steady-state coverage check
-- `diagnose_rollout_drift.py` : open-loop drift diagnostic
-- `sweep_lambda.py` : lambda trade-off sweep
-
-**`verify_all.py`** : verifies the Python simulator port (CPU and GPU) against the 201 MATLAB reference runs
-
-**`Presentations/`** : Progress update slides (PDF)
+**`Presentations/`** : supervisor meeting decks (PDF)
 
 ## Method
 The hydraulic transport layer is split across two closure models:
