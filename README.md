@@ -15,7 +15,7 @@ conventional nonlinear model predictive control (NMPC) loop for copper heap
 leaching utilising a physics-guided machine learning (PGML) surrogate. The
 surrogate is trained on the Richards/Gardner closure equations and
 predicts column hydraulic state in sub-second time, versus the 1.4 to 3.5
-second per-column for the conventional approach (baseline: Olivares et al., 2025, Minerals Engineering 229:109346).
+second per-column for the conventional approach (baseline: Olivares et al., 2025).
 
 The PGML model is trained with a physics-residual penalty so its predictions stay physically consistent, not merely data-fitted.
 
