@@ -76,15 +76,15 @@ Tested on: Python 3.14, CUDA 13.2, RTX 5060 Laptop GPU.
 
 ## Data and model
 
-The trained surrogate checkpoint is included in the repo:
+Trained surrogate checkpoint is included in 05_Evaluation:
 
-- `pgml_lam100.pt` : PGML surrogate (4-layer MLP, λ = 100), 4.0 MB.
+- `pgml_lam100.pt` : PGML surrogate (4-layer MLP, λ = 100), 4 MB.
 
-The training dataset is too large for git and is hosted on OneDrive:
+Training dataset (based on VGM) is hosted on OneDrive (click on hyperlink for download):
 
 - [`strategy1.h5`](https://1drv.ms/u/c/b1dd7053cf2fa097/IQD7zMgEJCj5QalOYTCVYUetAVyODMCobTd87nXSmFX7t1I?e=EKgTeg) : 201 runs, 171 MB.
 
-The dataset can also be regenerated from the MATLAB reference runs with `02_Data_Generator/generate_dataset.py`.
+The training dataset can also be regenerated from runs stored in `02_Data_Generator/generate_dataset.py`.
 
 ## Status
 - Strategy 1 (fixed soil; vary Q and θi): complete.
