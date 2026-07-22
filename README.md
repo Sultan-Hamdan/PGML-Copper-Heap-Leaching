@@ -54,12 +54,17 @@ The hydraulic transport layer is split across two constitutive relations:
 
 The surrogate is a 4-layer MLP (width 512) trained with a Gardner physics-residual penalty (lambda = 0.4).
 ## Installation
-In VS Code, used in terminal using the following:
-PyTorch nightly and CuPy, to install them:
+In VS Code, use the terminal as follows.
+
+PyTorch nightly and CuPy come from their own package indexes, so install them first:
+
     pip install --pre torch --index-url https://download.pytorch.org/whl/nightly/cu128
     pip install cupy-cuda13x
+
 Then the remaining packages:
+
     pip install -r requirements.txt
+
 Tested on: Python 3.14, CUDA 13.2, RTX 5060 Laptop GPU.
 ## Data and model
 Trained surrogate checkpoint is included in `06_Control/`:
