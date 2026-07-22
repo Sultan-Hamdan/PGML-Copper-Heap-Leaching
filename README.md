@@ -45,7 +45,6 @@ second per-column for the conventional approach (baseline: Olivares et al., 2025
     - `plot_closed_loop.m` : MATLAB closed-loop plotting
     - `closed_loop_surface.csv`, `closed_loop_surface.mat` : closed-loop surface outputs
     - `closed_loop_traj.csv` : closed-loop trajectory output
-- **`verify_all.py`** : verifies the Python simulator port (CPU and GPU) against the 201 MATLAB reference runs
 
 **`Presentations/`** : supervisor meeting decks (PDF)
 ## Method
