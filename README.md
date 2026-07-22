@@ -73,6 +73,6 @@ Training datasets are hosted on OneDrive (click on hyperlink for download):
 - [`strategy1.h5`](https://1drv.ms/u/c/b1dd7053cf2fa097/IQD7zMgEJCj5QalOYTCVYUetAVyODMCobTd87nXSmFX7t1I?e=EKgTeg) : 201 runs, 171 MB.
 - [`strategy2.h5`](https://1drv.ms/u/c/b1dd7053cf2fa097/IQCyyPBhvtUlQK3b8-rAnTTJASbimsEb2RhYLCU3Cgs5-0U?e=jktx0h) : 512 runs, 435 MB.
 ## Status
-- Strategy 1 (fixed soil; vary Q and theta_i): complete.
-- Strategy 2 (space-filling coverage of Q and theta_i; controlled irrigation schedules): pending.
+- Strategy 1 (fixed soil; vary Q and theta_i): completed.
+- Strategy 2 (space-filling coverage of Q and theta_i; controlled irrigation schedules): completed.
 - Strategy 3 (vary Ks, alpha, n via Sobol sampling): pending.
