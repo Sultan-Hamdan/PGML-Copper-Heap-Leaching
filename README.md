@@ -3,7 +3,7 @@
 ![PyTorch](https://img.shields.io/badge/PyTorch-nightly%20cu128-orange)
 ![MATLAB](https://img.shields.io/badge/MATLAB-R2026a-red)
 
-# PGML-Copper-Heap-Leaching
+# PGML Copper Heap Leaching
 **Physics-Guided Machine Learning for Sustainable Heap Leaching Control** <br>
 MSc Chemical Engineering Research Project, UCL. <br>
 Author: Sultan Alhamdan <br>
