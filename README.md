@@ -11,23 +11,28 @@ Supervisor: Dr. Paulina Quintanilla
 
 ## Overview
 
-A conventional nonlinear model predictive controller for copper heap leaching
-re-identifies the soil at every control step, which is what makes it slow. This
-project moves that identification into training. A neural network predicts the
-effective saturation profile of an irrigated ore column one hour ahead, and the
-controller uses it as its internal model: each day it sweeps candidate
-irrigation rates, steps the network forward under each, and applies the one that
-best holds the column at a saturation setpoint. Baseline: Olivares et al., 2025.
+As high-grade copper reserves deplete, heap leaching is increasingly the main
+route for extracting copper from low-grade ores, and recovery there is governed
+by bed saturation. Irrigation rate is the manipulated variable, yet standard
+practice fixes it at the design stage. A nonlinear model predictive controller
+built on the Richards model can regulate saturation to a setpoint instead, but
+it requires re-fitting the hydraulic parameters at every control step and has
+only been demonstrated for a single control volume.
+
+This work moves that identification into training. A physics-guided machine
+learning model predicts bed saturation in real time, trained on 25-day leach
+cycles simulated for 4096 distinct soils under a loss combining data with
+Gardner's constitutive relations. Baseline: Olivares et al., 2025.
 
 ## Method
 
 The hydraulic transport layer uses two constitutive relations:
 
-- **van Genuchten-Mualem** drives data generation
+- **van Genuchten Modified (VGM)** drives data generation
 - **Gardner** drives the controller and the physics penalty during training
 
 The network is a 4-layer MLP of width 512, trained on a convex combination of a
-data term and a Gardner physics residual at lambda = 0.4. Input is 226 values:
+data term and a Gardner physics residual at λ = 0.4. Input is 226 values:
 the 221-node saturation profile, the irrigation rate over the step, and four
 soil properties. Output is the 221-node profile one hour ahead.
 
@@ -86,7 +91,7 @@ with identical values, since the split seed is fixed at 42.
         physics_loss.py            Gardner residual
         fit_alpha_g.py             derives the Gardner alpha_g rule
         summarise_training.py      reduces run logs to one summary
-        models/                    three checkpoints, lambda 0.4, seeds 7/42/123
+        models/                    three checkpoints, λ 0.4, seeds 7/42/123
     05_Evaluation/
         openloop_drift.py          drift when the network runs unanchored
     06_Control/
@@ -100,11 +105,11 @@ Each script's docstring lists its flags.
 
 ## Data and weights
 
-Three checkpoints ship here, at lambda = 0.4 and seeds 7, 42 and 123. Held
+Three checkpoints ship here, at λ = 0.4 and seeds 7, 42 and 123. Held
 separately, being too large for the repository:
 
 - `dataset.h5`, 4096 simulated leach cycles
-- the remaining trained checkpoints, covering the lambda sweep and earlier
+- the remaining trained checkpoints, covering the λ sweep and earlier
   studies
 - per-run training logs, console output and diagnostic probes
 
