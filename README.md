@@ -31,7 +31,7 @@ soil properties. Output is the 221-node profile one hour ahead.
 
 ## Setup
 
-1. Download `dataset.h5` and put it in `data/`. See `data/README.md`.
+1. Download `dataset.h5` and put it in `src/data/`. See `src/data/README.md`.
 2. Install dependencies. `torch` is a nightly build and is not on PyPI, so it
    installs separately:
 
@@ -42,11 +42,11 @@ soil properties. Output is the 221-node profile one hour ahead.
 
 No configuration. Every script finds `data/` and `reference/` through `paths.py`
 when it starts. Keeping the dataset somewhere else is covered in
-`data/README.md`.
+`src/data/README.md`.
 
 ## Run the controller
 
-    cd 06_Control
+    cd src/06_Control
     python closed_loop.py                    # 614 validation soils
     python closed_loop.py --split test       # 615 test soils
 
@@ -55,42 +55,43 @@ Uses the trained weights in `04_Training/models/` and the inputs in
 
 ## Retrain
 
-    cd 03_Preprocessing  && python preprocess.py
-    cd ../04_Training    && python train.py --lam 0.4 --seed 42 --out runs/s42_lam0p4
-    cd ../04_Training    && python summarise_training.py --root runs
-    cd ../06_Control     && python closed_loop.py --sweep_dir ../04_Training/runs
+    cd src/03_Preprocessing && python preprocess.py
+    cd ../04_Training       && python train.py --lam 0.4 --seed 42 --out runs/s42_lam0p4
+    cd ../04_Training       && python summarise_training.py --root runs
+    cd ../06_Control        && python closed_loop.py --sweep_dir ../04_Training/runs
 
 `preprocess.py` overwrites `reference/scaler.json` and `reference/split.json`
 with identical values, since the split seed is fixed.
 
 ## Repository structure
 
-    data/                 download dataset.h5 and save it here
-    reference/            inputs the code reads: scalers, splits, soil lists, ceilings
-    results/              records from the released runs
-    paths.py              resolves every path
+    src/
+        data/                 download dataset.h5 and save it here
+        reference/            inputs the code reads: scalers, splits, soil lists, ceilings
+        results/              records from the released runs
+        paths.py              resolves every path
 
-    01_Simulator/
-        column_solver.py           Richards solver, batched over columns
-        tridiagonal_solve.py       Thomas algorithm as a CUDA kernel
-    02_Data_Generator/
-        generate_dataset.py        4096 Sobol to create dataset.h5
-    03_Preprocessing/
-        preprocess.py              split, scaling, per-timestep samples
-    04_Training/
-        train.py                   training loop
-        physics_loss.py            Gardner residual
-        fit_alpha_g.py             derives the Gardner alpha_g rule
-        summarise_training.py      reduces run logs to one summary
-        models/                    three checkpoints, λ 0.4, seeds 7/42/123
-    05_Evaluation/
-        openloop_drift.py          drift when the network runs unanchored
-    06_Control/
-        closed_loop.py             the controller
-        rmax_ceiling.py            per-soil irrigation ceiling
-        speed_benchmark.py         times the solver on the CPU
-        extrapolation/
-            build_extrapolation_soils.py    soils outside the training domain
+        01_Simulator/
+            column_solver.py           Richards solver, batched over columns
+            tridiagonal_solve.py       Thomas algorithm as a CUDA kernel
+        02_Data_Generator/
+            generate_dataset.py        4096 Sobol to create dataset.h5
+        03_Preprocessing/
+            preprocess.py              split, scaling, per-timestep samples
+        04_Training/
+            train.py                   training loop
+            physics_loss.py            Gardner residual
+            fit_alpha_g.py             derives the Gardner alpha_g rule
+            summarise_training.py      reduces run logs to one summary
+            models/                    three checkpoints, λ 0.4, seeds 7/42/123
+        05_Evaluation/
+            openloop_drift.py          drift when the network runs unanchored
+        06_Control/
+            closed_loop.py             the controller
+            rmax_ceiling.py            per-soil irrigation ceiling
+            speed_benchmark.py         times the solver on the CPU
+            extrapolation/
+                build_extrapolation_soils.py    soils outside the training domain
 
 Run any script with `--help` to see its options.
 
