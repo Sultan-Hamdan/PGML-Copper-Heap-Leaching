@@ -11,18 +11,11 @@ Supervisor: Dr. Paulina Quintanilla
 
 ## Overview
 
-As high-grade copper reserves deplete, heap leaching is increasingly the main
-route for extracting copper from low-grade ores, and recovery there is governed
-by bed saturation. Irrigation rate is the manipulated variable, yet standard
-practice fixes it at the design stage. A nonlinear model predictive controller
-built on the Richards model can regulate saturation to a setpoint instead, but
-it requires re-fitting the hydraulic parameters at every control step and has
-only been demonstrated for a single control volume.
-
-This work moves that identification into training. A physics-guided machine
-learning model predicts bed saturation in real time, trained on 25-day leach
-cycles simulated for 4096 distinct soils under a loss combining data with
-Gardner's constitutive relations. Baseline: Olivares et al., 2025.
+Source code for a physics-guided machine learning model that predicts and
+regulates bed saturation in copper heap leaching. It replaces the per-step
+hydraulic re-fitting a Richards-based nonlinear model predictive controller
+needs, moving identification into training so one controller can run at heap
+scale. Baseline: Olivares et al., 2025.
 
 ## Method
 
