@@ -1,0 +1,44 @@
+{
+  "created_utc": "2026-08-13T18:31:48Z",
+  "source_soils": "hardcoded reference soil (Cariaga 2015)",
+  "split": "val",
+  "safety": 0.95,
+  "div_tol": 0.001,
+  "days_tested": 1,
+  "start_states": [
+    "own"
+  ],
+  "n_R": 80,
+  "ids": [
+    "reference_cariaga2015"
+  ],
+  "Ks": [
+    170.0
+  ],
+  "R_cap_F16": [
+    51.0
+  ],
+  "R_stable": [
+    18.4875
+  ],
+  "r_max": [
+    17.563125
+  ],
+  "diverged_at_or_below_cap": [
+    true
+  ],
+  "first_divergent_R": [
+    19.125000000000004
+  ],
+  "res_tol": 1.0,
+  "criterion": "final_pass_excursion_and_picard_residual",
+  "worst_relative_excursion_final": [
+    125425.2463333281
+  ],
+  "worst_relative_excursion_anypass": [
+    125425.2463333281
+  ],
+  "worst_final_residual": [
+    146329.8917640447
+  ]
+}
