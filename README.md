@@ -15,7 +15,7 @@ Source code for a physics-guided machine learning model that predicts and
 regulates bed saturation in copper heap leaching. It replaces the per-step
 hydraulic re-fitting a Richards-based nonlinear model predictive controller
 needs, moving identification into training so one controller can run at heap
-scale. Baseline: Olivares et al., 2025.
+scale.
 
 ## Method
 
